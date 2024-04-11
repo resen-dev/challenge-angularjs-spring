@@ -1,0 +1,25 @@
+<div id="input-user-container">
+  <h3>Adicionar Colaborador</h3>
+  <div class="form-container">
+
+    <input type="text" autocomplete="off" placeholder="Nome" id="name" ng-model="$ctrl.name">
+
+    <input type="text" autocomplete="off" placeholder="Senha" id="password" ng-model="$ctrl.password">
+    
+    <div>
+      <input type="checkbox" id="isSubordinateYes" name="isSubordinate" ng-model="$ctrl.isSubordinate">
+      <label for="isSubordinateYes">Subordinado</label>
+    </div>
+
+    <div class="dropdown" ng-show="$ctrl.isSubordinate">
+      <input type="text" id="superiorInput" autocomplete="off" ng-model="$ctrl.superiorSearch"
+        ng-change="$ctrl.searchSuperiors($ctrl.superiorSearch)" placeholder="Buscar superiores" />
+      <ul class="dropdown-menu" ng-show="$ctrl.showDropdown">
+        <li ng-repeat="superior in $ctrl.superiors" ng-click="$ctrl.selectSuperior(superior)">{{superior.name}}</li>
+      </ul>
+    </div>
+
+    <button ng-click="$ctrl.submit()" ng-disabled="$ctrl.submitDisabled()">Enviar</button>
+
+  </div>
+</div>

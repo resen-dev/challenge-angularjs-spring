@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div id="hierarchy-list-item-container">
+    <div style="display: flex; align-items: center; flex-grow: 1; justify-content: space-between;">
+        <i ng-class="{'fas fa-plus': !$ctrl.expand, 'fas fa-minus': $ctrl.expand}" ng-click="$ctrl.expandHierarchy()" style="cursor: pointer; margin-right: 8px; " ng-if="$ctrl.user.qtdSubordinado > 0"></i>
+        <i class="fas fa-plus" style="color: transparent; margin-right: 5px; border-radius: 10px;" ng-if="!$ctrl.user.qtdSubordinado > 0"></i>
+        <p>{{ $ctrl.user.name }}</p>
+        <div style="display: flex; gap: 8px; margin-left: auto;">
+            <span class="strength-container" style="color: white">{{$ctrl.user.passwordStrength > 100 ? 100 : ($ctrl.user.passwordStrength < 0 ? 0 : $ctrl.user.passwordStrength)}}%</span>
+            <span class="strength-container" style="background-color: rgb(255, 0, 0);" ng-if="$ctrl.user.passwordStrength >= 0 && $ctrl.user.passwordStrength <= 30">Ruim</span>
+            <span class="strength-container" style="background-color: rgb(208, 255, 0);" ng-if="$ctrl.user.passwordStrength > 30 && $ctrl.user.passwordStrength <= 50">Mediano</span>
+            <span class="strength-container" style="background-color: rgb(0, 225, 255);" ng-if="$ctrl.user.passwordStrength > 50 && $ctrl.user.passwordStrength <= 80">Bom</span>
+            <span class="strength-container" style="background-color: rgb(136, 255, 0);" ng-if="$ctrl.user.passwordStrength > 80">Forte</span>    
+            <span class="strength-container" style="background-color: transparent">{{$ctrl.user.qtdSubordinado}} Subordinados</span>
+        </div>
+    </div>
+    <div ng-if="$ctrl.expand" style="display: flex;">
+        <i class="fas fa-plus" style="color: transparent; background-color: rgb(168, 168, 168); margin-right: 5px; border-radius: 10px;"></i>
+        <div style="flex-grow: 1;">
+            <app-hierarchy-list-item ng-repeat="subordinate in $ctrl.user.subordinates" user="subordinate"></app-hierarchy-list-item>
+        </div>
+    </div>
+</div>
